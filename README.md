@@ -81,6 +81,14 @@ TAGS="@smoke" npm run wdio
 - `allure-results/` — generated test result data
 - `allure-report/` — generated Allure report output
 
+## GitHub Pages report
+
+After a successful push to `main` or `master`, the CI workflow publishes the generated Allure report to GitHub Pages.
+
+- The report is generated from `allure-report/`
+- It is deployed using GitHub Actions
+- View the report in your browser via your repository Pages URL once the job finishes
+
 ## Notes
 
 - Add any additional browser or service configuration inside `wdio.conf.ts`
