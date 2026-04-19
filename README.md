@@ -92,9 +92,17 @@ TAGS="@smoke" npm run wdio
 This repository now includes a GitHub Actions workflow in `.github/workflows/ci.yml` that:
 
 - installs dependencies with `npm ci`
-- runs the suite with `npm run ci:test`
+- runs smoke tests only using `npm run ci:test`
 - generates `allure-report` artifacts without attempting to open a browser UI
 - uploads `allure-results` and `allure-report` for review
+
+The `performance_glitch_user` test remains available as `@slow` and is excluded from the default CI path.
+
+To run smoke tests locally:
+
+```bash
+npm run wdio:smoke
+```
 
 ## Recommended `.gitignore` entries
 

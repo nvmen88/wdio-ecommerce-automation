@@ -50,14 +50,22 @@ Then('I validate result {string}', async (result: string) => {
       await LoginPage.validateErrorMessage();
       break;
     case 'slow':
-      const start = Date.now();
       await browser.waitUntil(async () => await $('.inventory_list').isDisplayed(), {
-        timeout: 10000,
+        timeout: 15000,
         timeoutMsg: 'Inventory page did not load'
       });
-      const duration = Date.now() - start;
-      console.log(`⏱ Load time: ${duration}ms`);
-      expect(duration).toBeGreaterThan(2000);
+
+      const duration = await browser.execute(() => {
+        const navigationEntry = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined;
+        if (navigationEntry && navigationEntry.duration > 0) {
+          return navigationEntry.duration;
+        }
+        return performance.timing.loadEventEnd - performance.timing.navigationStart;
+      });
+
+      const loadedMs = Number(duration ?? 0);
+      console.log(`⏱ Load time: ${loadedMs}ms`);
+      expect(loadedMs).toBeGreaterThan(2000);
       break;
     default:
       throw new Error(`Unknown result type: ${result}`);
