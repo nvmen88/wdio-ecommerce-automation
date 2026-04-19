@@ -65,23 +65,26 @@ jobs:
         run: |
           echo 'Extracted contents:'
           find extracted-report -maxdepth 3 -type d | sort
-          if [ -d ./extracted-report/allure-report ]; then
-            echo 'DEPLOY_DIR=./extracted-report/allure-report' >> $GITHUB_ENV
-          elif [ -d ./extracted-report ]; then
+          if [ -f extracted-report/index.html ]; then
             echo 'DEPLOY_DIR=./extracted-report' >> $GITHUB_ENV
+          elif [ -f extracted-report/allure-report/index.html ]; then
+            echo 'DEPLOY_DIR=./extracted-report/allure-report' >> $GITHUB_ENV
           else
-            echo 'Could not find allure-report directory.'
+            echo 'Could not find extracted report index.html.'
             find extracted-report -maxdepth 4 -type f | sort
             exit 1
           fi
 
-      - name: Deploy Allure report to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload Allure report to Pages
+        uses: actions/upload-pages-artifact@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ${{ env.DEPLOY_DIR }}
-          publish_branch: gh-pages
-          allow_empty_commit: true
+          path: ${{ env.DEPLOY_DIR }}
+
+      - name: Deploy Allure report to GitHub Pages
+        uses: actions/deploy-pages@v1
 
       - name: Show GitHub Pages URL
         run: |
