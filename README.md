@@ -1,3 +1,10 @@
+## 🚀 Live Demo
+
+- 🔗 GitHub Repository: https://github.com/nvmen88/wdio-ecommerce-automation
+- 📊 Allure Report: https://<your-username>.github.io/<repo>
+
+![Allure Report](./docs/allure-screenshot.png)
+
 # WDIO Ecommerce Automation
 
 This project is an end-to-end test automation suite built with:

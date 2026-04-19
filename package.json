@@ -27,6 +27,6 @@
     "test:allure": "npm run allure:clean && npm run wdio && npm run allure:report",
     "test:report": "npm run test:allure",
     "wdio:smoke": "TAGS='@smoke or @e2e' wdio run ./wdio.conf.ts",
-    "ci:test": "npm run allure:clean && npm run wdio:smoke && npm run allure:generate"
+    "ci:test": "npm run allure:clean && npm run wdio:all && npm run allure:generate"
   }
 }
