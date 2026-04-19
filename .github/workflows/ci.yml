@@ -6,6 +6,11 @@ on:
   pull_request:
     branches: [main, master]
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -50,19 +55,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Download Allure report artifact
+        uses: actions/download-artifact@v4
         with:
-          node-version: 20.x
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run WDIO smoke tests and generate Allure report
-        run: npm run ci:test
-        env:
-          CI: true
+          name: allure-report
+          path: .
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v4
