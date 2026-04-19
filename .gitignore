@@ -4,4 +4,3 @@ allure-results/
 .env
 _results_/
 *.log
-package-lock.json
