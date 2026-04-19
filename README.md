@@ -87,6 +87,15 @@ TAGS="@smoke" npm run wdio
 - If a test file is already tracked by Git and you want it ignored, add it to `.gitignore` and run `git rm --cached <file>`
 - Keep `allure-results` and `allure-report` out of version control if they are generated artifacts
 
+## Continuous Integration
+
+This repository now includes a GitHub Actions workflow in `.github/workflows/ci.yml` that:
+
+- installs dependencies with `npm ci`
+- runs the suite with `npm run ci:test`
+- generates `allure-report` artifacts without attempting to open a browser UI
+- uploads `allure-results` and `allure-report` for review
+
 ## Recommended `.gitignore` entries
 
 ```gitignore

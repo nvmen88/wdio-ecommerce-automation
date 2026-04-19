@@ -16,6 +16,7 @@ function parseEnvList(value?: string, fallback = ''): string[] {
 
 const specs = parseEnvList(process.env.SPECT, './features/**/*.feature');
 const tagExpression = process.env.TAGS?.trim().replace(/^['"]|['"]$/g, '') || '';
+const isCi = process.env.CI === 'true' || process.env.GITHUB_ACTIONS === 'true';
 
 export const config: WebdriverIO.Config = {
     //
@@ -70,19 +71,27 @@ export const config: WebdriverIO.Config = {
     //
     capabilities: [
         {
-        browserName: 'chrome'
-    }, 
-    {
-        browserName: 'firefox'
-    }, 
-    // {
-    //     browserName: 'safari'
-    // }
-    // ,
-    //  {
-    //     browserName: 'MicrosoftEdge'
-    // }
-],
+            browserName: 'chrome',
+            'goog:chromeOptions': {
+                args: isCi
+                    ? ['--headless=new', '--disable-gpu', '--no-sandbox', '--disable-dev-shm-usage']
+                    : []
+            }
+        },
+        {
+            browserName: 'firefox',
+            'moz:firefoxOptions': {
+                args: isCi ? ['-headless'] : []
+            }
+        },
+        // {
+        //     browserName: 'safari'
+        // }
+        // ,
+        //  {
+        //     browserName: 'MicrosoftEdge'
+        // }
+    ],
 
     //
     // ===================
