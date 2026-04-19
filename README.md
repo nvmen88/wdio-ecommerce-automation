@@ -87,7 +87,6 @@ After a successful push to `main` or `master`, the CI workflow publishes the gen
 
 - The report is generated from `allure-report/`
 - It is deployed using GitHub Actions
-- View the report in your browser via your repository Pages URL once the job finishes
 
 ## Notes
 
@@ -102,7 +101,7 @@ This repository now includes a GitHub Actions workflow in `.github/workflows/ci.
 - installs dependencies with `npm ci`
 - runs smoke tests only using `npm run ci:test`
 - generates `allure-report` artifacts without attempting to open a browser UI
-- uploads `allure-results` and `allure-report` for review
+- uploads `allure-results` and `allure-report` for reviewn
 
 The `performance_glitch_user` test remains available as `@slow` and is excluded from the default CI path.
 
