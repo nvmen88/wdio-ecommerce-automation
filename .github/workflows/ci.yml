@@ -61,17 +61,25 @@ jobs:
           name: allure-report
           path: .
 
-      - name: Inspect downloaded report files
+      - name: Locate report directory
         run: |
-          echo 'Report content:'
-          ls -la allure-report || true
-          find allure-report -maxdepth 2 -type f | sort | sed -n '1,40p'
+          echo 'Workspace contents:'
+          find . -maxdepth 3 -type d | sort
+          if [ -d ./allure-report ]; then
+            echo 'DEPLOY_DIR=./allure-report' >> $GITHUB_ENV
+          elif [ -d ./allure-report/allure-report ]; then
+            echo 'DEPLOY_DIR=./allure-report/allure-report' >> $GITHUB_ENV
+          else
+            echo 'Could not find allure-report directory.'
+            find . -maxdepth 4 -type f | sort
+            exit 1
+          fi
 
       - name: Deploy Allure report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./allure-report
+          publish_dir: ${{ env.DEPLOY_DIR }}
           publish_branch: gh-pages
           allow_empty_commit: true
 
