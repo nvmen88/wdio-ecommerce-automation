@@ -4,3 +4,4 @@ allure-results/
 .env
 _results_/
 *.log
+.DS_Store
