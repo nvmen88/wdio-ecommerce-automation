@@ -5,6 +5,42 @@
 
 ![Allure Report](./docs/allure-screenshot.png)
 
+## 📌 Test Coverage
+
+This framework covers:
+
+- ✅ Login functionality (positive & negative)
+- ✅ Data-driven testing with Scenario Outline
+- ✅ Add to cart and checkout flow
+- ✅ Error validation (locked user, invalid login)
+- ✅ Performance scenario (`performance_glitch_user`)
+
+## 🧱 Framework Design
+
+- Page Object Model (POM)
+- Reusable step definitions
+- Environment-based configuration
+- Parallel execution supported
+
+## 🔄 CI/CD Pipeline
+
+Integrated with GitHub Actions:
+
+- ✔️ Runs automated tests on every push
+- ✔️ Generates Allure reports
+- ✔️ Publishes report to GitHub Pages
+
+👉 View latest report: https://<your-username>.github.io/<repo>
+
+## 💡 Purpose
+
+This project demonstrates how to build a production-ready automation framework with:
+
+- Scalable test structure
+- CI/CD integration
+- Rich reporting with Allure
+- Real-world E2E test scenarios
+
 # WDIO Ecommerce Automation
 
 This project is an end-to-end test automation suite built with:
@@ -126,3 +162,7 @@ allure-results/
 allure-report/
 .DS_Store
 ```
+## 👤 Author
+
+Phuoc Nguyen  
+Automation Test Engineer  

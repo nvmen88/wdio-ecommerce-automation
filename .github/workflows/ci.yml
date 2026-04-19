@@ -35,6 +35,23 @@ jobs:
         env:
           CI: true
 
+      - name: Verify Allure artifacts
+        run: |
+          if [ -d allure-results ]; then
+            echo "Allure results files:"
+            find allure-results -type f | sort
+          else
+            echo "ERROR: allure-results directory is missing"
+            exit 1
+          fi
+          if [ -d allure-report ]; then
+            echo "Allure report files:"
+            find allure-report -type f | sort
+          else
+            echo "ERROR: allure-report directory is missing"
+            exit 1
+          fi
+
       - name: Upload Allure results artifact
         uses: actions/upload-artifact@v4
         with:

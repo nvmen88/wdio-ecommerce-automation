@@ -16,17 +16,17 @@
   },
   "scripts": {
     "wdio": "wdio run ./wdio.conf.ts",
-    "wdio:all": "wdio run ./wdio.conf.ts --spec ./features/**/*.feature",
+    "wdio:all": "wdio run ./wdio.conf.ts --spec ./features/*.feature",
     "wdio:debug": "wdio run ./wdio.conf.ts --logLevel debug",
     "wdio:verbose": "wdio run ./wdio.conf.ts --logLevel trace",
     "wdio:inspect": "node --inspect-brk ./node_modules/.bin/wdio run ./wdio.conf.ts",
     "allure:clean": "rm -rf allure-results allure-report",
-    "allure:generate": "npx allure generate allure-results -o allure-report",
+    "allure:generate": "npx allure generate allure-results -o allure-report --clean",
     "allure:open": "npx allure open allure-report",
     "allure:report": "npm run allure:generate && npm run allure:open",
     "test:allure": "npm run allure:clean && npm run wdio && npm run allure:report",
     "test:report": "npm run test:allure",
     "wdio:smoke": "TAGS='@smoke or @e2e' wdio run ./wdio.conf.ts",
-    "ci:test": "npm run allure:clean && npm run wdio:all && npm run allure:generate"
+    "ci:test": "sh -c 'CI=true npm run allure:clean && CI=true npm run wdio:all; status=$?; CI=true npm run allure:generate; exit $status'"
   }
 }
