@@ -59,7 +59,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: allure-report
-          path: allure-report
+          path: .
+
+      - name: Inspect downloaded report files
+        run: |
+          echo 'Report content:'
+          ls -la allure-report || true
+          find allure-report -maxdepth 2 -type f | sort | sed -n '1,40p'
 
       - name: Deploy Allure report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
