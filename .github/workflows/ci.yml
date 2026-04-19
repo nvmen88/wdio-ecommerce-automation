@@ -75,16 +75,13 @@ jobs:
             exit 1
           fi
 
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload Allure report to Pages
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: ${{ env.DEPLOY_DIR }}
-
       - name: Deploy Allure report to GitHub Pages
-        uses: actions/deploy-pages@v1
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ${{ env.DEPLOY_DIR }}
+          publish_branch: gh-pages
+          allow_empty_commit: true
 
       - name: Show GitHub Pages URL
         run: |
