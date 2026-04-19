@@ -59,19 +59,19 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: allure-report
-          path: .
+          path: extracted-report
 
       - name: Locate report directory
         run: |
-          echo 'Workspace contents:'
-          find . -maxdepth 3 -type d | sort
-          if [ -d ./allure-report ]; then
-            echo 'DEPLOY_DIR=./allure-report' >> $GITHUB_ENV
-          elif [ -d ./allure-report/allure-report ]; then
-            echo 'DEPLOY_DIR=./allure-report/allure-report' >> $GITHUB_ENV
+          echo 'Extracted contents:'
+          find extracted-report -maxdepth 3 -type d | sort
+          if [ -d ./extracted-report/allure-report ]; then
+            echo 'DEPLOY_DIR=./extracted-report/allure-report' >> $GITHUB_ENV
+          elif [ -d ./extracted-report ]; then
+            echo 'DEPLOY_DIR=./extracted-report' >> $GITHUB_ENV
           else
             echo 'Could not find allure-report directory.'
-            find . -maxdepth 4 -type f | sort
+            find extracted-report -maxdepth 4 -type f | sort
             exit 1
           fi
 
